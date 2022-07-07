@@ -1,4 +1,15 @@
 import * as express from 'express';
+import UserController from './database/controllers/UserController';
+import UserService from './database/services/userService';
+import UserRepository from './database/repository/userRepository';
+
+const userFactory = () => {
+  const repository = new UserRepository();
+  const service = new UserService(repository);
+  const controller = new UserController(service);
+
+  return controller
+}
 
 class App {
   public app: express.Express;
@@ -25,8 +36,12 @@ class App {
   }
 
   public start(PORT: string | number):void {
+    this.app.post('/login', (req, res, next) => {
+      userFactory().login(req, res, next);
+    });
+
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
-  }
+  }  
 }
 
 export { App };
