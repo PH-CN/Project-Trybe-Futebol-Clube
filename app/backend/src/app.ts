@@ -35,7 +35,7 @@ class App {
     this.app.use(accessControl);
   }
 
-  public start(PORT: string | number):void {
+  public start(PORT: string | number): void {
     this.app.post('/login', (req, res, next) => {
       userFactory().login(req, res, next);
     });

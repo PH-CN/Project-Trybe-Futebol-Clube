@@ -1,4 +1,4 @@
-import { User, IUserModel, IUserService } from '../protocols';
+import { IUserModel, IUserService } from '../protocols';
 import generateToken from '../utils/generateToken';
 import * as bcrypt from 'bcryptjs';
 

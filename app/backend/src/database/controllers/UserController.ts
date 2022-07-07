@@ -12,9 +12,9 @@ export default class UserController {
 
       const token = await this.service.login(email, password)
 
-      return res.status(201).json(token)
-    } catch (error: any) {
-      console.log(error.message)
+      return res.status(200).json({ token })
+    } catch (error) {
+      console.log(error)
     }
   }
 }
