@@ -7,7 +7,7 @@ class Example extends Model {
 }
 
 Example.init({
-  // ... Campos
+  // ... Campo
 }, {
   // ... Outras configs
   underscored: true,
