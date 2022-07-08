@@ -1,25 +1,31 @@
 import { IUserModel, IUserService } from '../protocols';
-import generateToken from '../utils/generateToken';
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken'
+
+const jwtConfig = {
+  algorithm: 'HS256',
+} as jwt.SignOptions;
+
+const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 export default class UserService implements IUserService {
   constructor(private model: IUserModel) {
     this.model = model;
   }
 
-  async login(email: string, password: string): Promise<string> {
-    const user = await this.model.findOne(email)
+  async login(email: string, password: string): Promise<string | boolean> {
+    const user = await this.model.findOne(email);
 
-    if (!user) {
-      throw new Error('User not found')
-    }
+    if (!user) return false;
 
-    const verifyPass = bcrypt.compareSync(password, user.password)
+    const verifyPass = bcrypt.compareSync(password, user.password);
 
-    if (!verifyPass) {
-      throw new Error('Wrong credentials')
-    }
+    if (!verifyPass) return false;
 
-    return generateToken(user);
+    const { id, role, username } = user
+
+    const token =  jwt.sign({ id, username, role, email }, secret, jwtConfig)
+
+    return token
   }
 }

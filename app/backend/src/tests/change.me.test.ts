@@ -1,45 +1,41 @@
-import * as sinon from 'sinon';
 import * as chai from 'chai';
+import { before } from 'mocha';
+import * as sinon from 'sinon';
+import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+import User from '../database/models/UserModel';
 
-import { Response } from 'superagent';
+const mockedUser = {
+  id: 1,
+  username: 'joesley',
+  role: 'user',
+  email: 'joesley@email.com',
+  password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
+}
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
+describe('User Entity', () => {
+  before(() => {
+    sinon.stub(User, 'findOne')
+      .resolves(mockedUser as User)
+    sinon.stub(jwt, 'sign').resolves('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU0NTI3MTg5fQ.XS_9AA82iNoiVaASi0NtJpqOQ_gHSHhxrpIdigiT-fc')
+  });
 
-  // let chaiHttpResponse: Response;
+  after(() => {
+    (User.findOne as sinon.SinonStub)
+      .restore();
+    (jwt.sign as sinon.SinonStub).restore();
+  })
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
-
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
-
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
-
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('o método post login retorna o status 200 com um token', async () => {
+    const response = await chai.request(app).post('/login').send({ email: mockedUser.email, password: 'secret_user' });
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.eql({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU0NTI3MTg5fQ.XS_9AA82iNoiVaASi0NtJpqOQ_gHSHhxrpIdigiT-fc' });
   });
 });

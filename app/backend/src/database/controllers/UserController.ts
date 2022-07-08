@@ -10,11 +10,15 @@ export default class UserController {
     try {
       const { email, password } = req.body;
 
-      const token = await this.service.login(email, password)
+      const token = await this.service.login(email, password);
+
+      if (!token) {
+        return res.status(401).json({ message: 'Incorret credentials' })
+      }
 
       return res.status(200).json({ token })
     } catch (error) {
-      console.log(error)
+      next(error)
     }
   }
 }

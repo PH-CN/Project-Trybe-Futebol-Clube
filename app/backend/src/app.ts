@@ -1,15 +1,15 @@
 import * as express from 'express';
 import UserController from './database/controllers/UserController';
+import UserRepository from './database/repositories/userRepository';
 import UserService from './database/services/userService';
-import UserRepository from './database/repository/userRepository';
 
-const userFactory = () => {
+const UserFactory = () => {
   const repository = new UserRepository();
   const service = new UserService(repository);
   const controller = new UserController(service);
 
-  return controller
-}
+  return controller;
+};
 
 class App {
   public app: express.Express;
@@ -28,20 +28,21 @@ class App {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
+
       next();
     };
 
     this.app.use(express.json());
     this.app.use(accessControl);
+
+    this.app.post('/login', (req, res, next) => {
+      UserFactory().login(req, res, next);
+    });
   }
 
-  public start(PORT: string | number): void {
-    this.app.post('/login', (req, res, next) => {
-      userFactory().login(req, res, next);
-    });
-
+  public start(PORT: string | number):void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
-  }  
+  }
 }
 
 export { App };
