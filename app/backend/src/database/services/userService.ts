@@ -1,4 +1,4 @@
-import { IUserModel, IUserService } from '../protocols';
+import { IUserModel, IUserService, MyError } from '../protocols';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken'
 
@@ -13,14 +13,16 @@ export default class UserService implements IUserService {
     this.model = model;
   }
 
-  async login(email: string, password: string): Promise<string | boolean> {
+  async login(email: string, password: string): Promise<MyError | string> {
+    if (!email || !password) return { error: true, code: 400, message: 'All fields must be filled' }
+
     const user = await this.model.findOne(email);
 
-    if (!user) return false;
+    if (!user) return { error: true, code: 401,  message: 'User not found'};
 
     const verifyPass = bcrypt.compareSync(password, user.password);
 
-    if (!verifyPass) return false;
+    if (!verifyPass) return { error: true, code: 401,  message: 'Incorrect credentials'};
 
     const { id, role, username } = user
 

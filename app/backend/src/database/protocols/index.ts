@@ -6,8 +6,14 @@ export interface User {
   password: string
 }
 
+export interface MyError {
+  error: boolean;
+  code: number;
+  message: string;
+}
+
 export interface IUserService {
-  login(email: string, password: string): Promise<string | boolean>
+  login(email: string, password: string): Promise<string | MyError>
 }
 
 export interface IUserModel {
