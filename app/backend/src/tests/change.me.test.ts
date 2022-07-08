@@ -20,7 +20,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('User Entity', () => {
+describe('O método post na rota login', () => {
   before(() => {
     sinon.stub(User, 'findOne')
       .resolves(mockedUser as User)
@@ -33,9 +33,15 @@ describe('User Entity', () => {
     (jwt.sign as sinon.SinonStub).restore();
   })
 
-  it('o método post login retorna o status 200 com um token', async () => {
+  it('feito corretamente retorna o status 200 com um token', async () => {
     const response = await chai.request(app).post('/login').send({ email: mockedUser.email, password: 'secret_user' });
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.eql({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU0NTI3MTg5fQ.XS_9AA82iNoiVaASi0NtJpqOQ_gHSHhxrpIdigiT-fc' });
+  });
+
+  it('feito sem um email retorna a mensagem de que todos os campos devem estar preenchidos', async () => {
+    const response = await chai.request(app).post('/login').send({ password: 'secret_user' });
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.eql({ message: 'All fields must be filled' });
   });
 });
