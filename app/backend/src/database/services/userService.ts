@@ -18,7 +18,7 @@ export default class UserService implements IUserService {
   async login(email: string, password: string): Promise<MyError | string> {
     if (!email || !password) return { error: true, code: 400, message: 'All fields must be filled' }
 
-    if (!emailRegex.test(email)) return { error: true, code: 401, message: 'Incorret email or password' }
+    if (!emailRegex.test(email)) return { error: true, code: 401, message: 'Incorrect email or password' }
 
     const user = await this.model.findOne(email);
 
