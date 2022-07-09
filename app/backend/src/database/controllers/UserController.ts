@@ -3,7 +3,7 @@ import { IUserService } from '../protocols';
 
 export default class UserController {
   constructor(private service: IUserService) {
-    this.service = service
+    this.service = service;
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
@@ -13,7 +13,7 @@ export default class UserController {
       const token = await this.service.login(email, password);
 
       if (typeof token === 'object') {
-        return res.status(token.code).json({ message: token.message});
+        return res.status(token.code).json({ message: token.message });
       }
 
       return res.status(200).json({ token });

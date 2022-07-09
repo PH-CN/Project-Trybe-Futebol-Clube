@@ -18,24 +18,24 @@ Users.init({
   },
   username: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   role: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   password: {
     type: STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }, {
   sequelize: db,
   modelName: 'users',
   timestamps: false,
-})
+});
 
 export default Users;

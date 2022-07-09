@@ -16,14 +16,14 @@ Matches.init({
     type: INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   home_team: {
     type: INTEGER,
     allowNull: false,
     references: {
       model: 'teams',
-      key: 'id'
+      key: 'id',
     },
   },
   home_team_goals: {
@@ -35,22 +35,22 @@ Matches.init({
     allowNull: false,
     references: {
       model: 'teams',
-      key: 'id'
+      key: 'id',
     },
   },
   away_team_goals: {
     type: INTEGER,
-    allowNull: false
+    allowNull: false,
   },
   in_progress: {
     type: INTEGER,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }, {
   sequelize: db,
   underscored: true,
   modelName: 'matches',
-  timestamps: false
+  timestamps: false,
 });
 
 Teams.hasMany(Matches, { foreignKey: 'home_team', as: 'homeMatches' });

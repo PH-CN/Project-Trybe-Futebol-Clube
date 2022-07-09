@@ -3,7 +3,7 @@ import db from '.';
 
 class Teams extends Model {
   id!: number;
-  team_name!: string 
+  team_name!: string;
 }
 
 Teams.init({
@@ -11,17 +11,17 @@ Teams.init({
     type: INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   team_name: {
     type: STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }, {
   sequelize: db,
   underscored: true,
   modelName: 'teams',
-  timestamps: false
+  timestamps: false,
 });
 
 export default Teams;

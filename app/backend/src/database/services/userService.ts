@@ -1,6 +1,6 @@
-import { IUserModel, IUserService, MyError } from '../protocols';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken'
+import * as jwt from 'jsonwebtoken';
+import { IUserModel, IUserService, MyError } from '../protocols';
 
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/i;
 
@@ -16,21 +16,25 @@ export default class UserService implements IUserService {
   }
 
   async login(email: string, password: string): Promise<MyError | string> {
-    if (!email || !password) return { error: true, code: 400, message: 'All fields must be filled' }
+    if (!email || !password) {
+      return { error: true, code: 400, message: 'All fields must be filled' };
+    }
 
-    if (!emailRegex.test(email)) return { error: true, code: 401, message: 'Incorrect email or password' }
+    if (!emailRegex.test(email)) {
+      return { error: true, code: 401, message: 'Incorrect email or password' };
+    }
 
     const user = await this.model.findOne(email);
 
-    if (!user) return { error: true, code: 401,  message: 'Incorrect email or password' };
+    if (!user) return { error: true, code: 401, message: 'Incorrect email or password' };
 
     const verifyPass = bcrypt.compareSync(password, user.password);
 
-    if (!verifyPass) return { error: true, code: 401,  message: 'Incorret email or password' };
+    if (!verifyPass) return { error: true, code: 401, message: 'Incorret email or password' };
 
     const { id, role, username } = user;
 
-    const token =  jwt.sign({ id, username, role, email }, secret, jwtConfig);
+    const token = jwt.sign({ id, username, role, email }, secret, jwtConfig);
 
     return token;
   }
