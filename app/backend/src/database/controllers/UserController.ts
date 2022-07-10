@@ -21,4 +21,18 @@ export default class UserController {
       next(error);
     }
   }
+
+  async validateAuth(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { authorization } = req.headers;
+
+      const validation = this.service.validateAuth(authorization);
+
+      if (typeof validation === 'object') {
+        return res.status(200).json({ role: validation.role });
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
 }

@@ -1,3 +1,5 @@
+import { Jwt, JwtPayload } from "jsonwebtoken";
+
 export interface User {
   id: number;
   username: string,
@@ -14,6 +16,7 @@ export interface MyError {
 
 export interface IUserService {
   login(email: string, password: string): Promise<string | MyError>
+  validateAuth(authorization: string | undefined): JwtPayload | string
 }
 
 export interface IUserModel {

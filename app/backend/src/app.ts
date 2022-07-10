@@ -38,6 +38,10 @@ class App {
     this.app.post('/login', (req, res, next) => {
       UserFactory().login(req, res, next);
     });
+
+    this.app.get('/login/validate', (req, res, next) => {
+      UserFactory().validateAuth(req, res, next);
+    });
   }
 
   public start(PORT: string | number):void {
