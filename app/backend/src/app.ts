@@ -56,7 +56,11 @@ class App {
 
     this.app.get('/teams', (req, res, next) => {
       TeamFactory().findAll(req, res, next);
-    })
+    });
+
+    this.app.get('/teams/:id', (req, res, next) => {
+      TeamFactory().findByPk(req, res, next);
+    });
   }
 
   public start(PORT: string | number):void {

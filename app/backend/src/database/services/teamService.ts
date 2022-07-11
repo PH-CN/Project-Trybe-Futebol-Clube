@@ -10,4 +10,10 @@ export default class TeamService implements ITeamService {
 
     return teams
   }
+
+  async findByPk(id: string | number): Promise<Team> {
+    const team = await this.model.findByPk(id)
+
+    return team
+  }
 }

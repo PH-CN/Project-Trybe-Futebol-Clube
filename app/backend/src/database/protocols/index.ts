@@ -34,8 +34,10 @@ export interface IUserModel {
 
 export interface ITeamService {
   findAll(): Promise<Team[]>
+  findByPk(id: string | number): Promise<Team>
 }
 
 export interface ITeamModel {
   findAll(): Promise<Team[] | []>
+  findByPk(id: string | number): Promise<Team>
 }
