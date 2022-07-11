@@ -14,6 +14,10 @@ export interface MyError {
   message: string;
 }
 
+export interface roleResponse {
+  role: string
+}
+
 export interface IUserService {
   login(email: string, password: string): Promise<string | MyError>
   validateAuth(authorization: string | undefined): JwtPayload | string
