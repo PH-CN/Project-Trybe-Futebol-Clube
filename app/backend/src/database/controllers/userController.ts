@@ -32,7 +32,7 @@ export default class UserController {
         return res.status(200).json({ role: validation.role });
       }
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

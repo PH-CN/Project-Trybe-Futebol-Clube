@@ -19,8 +19,8 @@ const TeamFactory = () => {
   const service = new TeamService(repository);
   const controller = new TeamController(service);
 
-  return controller
-}
+  return controller;
+};
 
 class App {
   public app: express.Express;

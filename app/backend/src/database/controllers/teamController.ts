@@ -12,7 +12,7 @@ export default class TeamController {
 
       return res.status(200).json(teams);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
@@ -24,7 +24,7 @@ export default class TeamController {
 
       return res.status(200).json(teams);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

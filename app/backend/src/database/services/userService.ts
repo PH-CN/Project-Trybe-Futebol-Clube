@@ -40,8 +40,8 @@ export default class UserService implements IUserService {
   }
 
   validateAuth(authorization: string) {
-    const decoded = jwt.verify(authorization, secret)
+    const decoded = jwt.verify(authorization, secret);
 
-    return decoded
+    return decoded;
   }
 }

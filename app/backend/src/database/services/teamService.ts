@@ -6,14 +6,14 @@ export default class TeamService implements ITeamService {
   }
 
   async findAll(): Promise<Team[] | []> {
-    const teams = this.model.findAll()
+    const teams = this.model.findAll();
 
-    return teams
+    return teams;
   }
 
   async findByPk(id: string | number): Promise<Team> {
-    const team = await this.model.findByPk(id)
+    const team = await this.model.findByPk(id);
 
-    return team
+    return team;
   }
 }
