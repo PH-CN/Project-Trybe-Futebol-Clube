@@ -1,6 +1,9 @@
 import * as express from 'express';
-import UserController from './database/controllers/UserController';
+import TeamController from './database/controllers/teamController';
+import UserController from './database/controllers/userController';
+import TeamRepository from './database/repositories/teamRepository';
 import UserRepository from './database/repositories/userRepository';
+import TeamService from './database/services/teamService';
 import UserService from './database/services/userService';
 
 const UserFactory = () => {
@@ -10,6 +13,14 @@ const UserFactory = () => {
 
   return controller;
 };
+
+const TeamFactory = () => {
+  const repository = new TeamRepository();
+  const service = new TeamService(repository);
+  const controller = new TeamController(service);
+
+  return controller
+}
 
 class App {
   public app: express.Express;
@@ -42,6 +53,10 @@ class App {
     this.app.get('/login/validate', (req, res, next) => {
       UserFactory().validateAuth(req, res, next);
     });
+
+    this.app.get('/teams', (req, res, next) => {
+      TeamFactory().findAll(req, res, next);
+    })
   }
 
   public start(PORT: string | number):void {

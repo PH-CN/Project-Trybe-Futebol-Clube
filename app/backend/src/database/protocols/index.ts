@@ -1,4 +1,4 @@
-import { Jwt, JwtPayload } from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 
 export interface User {
   id: number;
@@ -6,6 +6,11 @@ export interface User {
   role: string;
   email: string;
   password: string
+}
+
+export interface Team {
+  id: number;
+  team_name: string;
 }
 
 export interface MyError {
@@ -25,4 +30,12 @@ export interface IUserService {
 
 export interface IUserModel {
   findOne(email: string): Promise<User | null>
+}
+
+export interface ITeamService {
+  findAll(): Promise<Team[]>
+}
+
+export interface ITeamModel {
+  findAll(): Promise<Team[] | []>
 }
