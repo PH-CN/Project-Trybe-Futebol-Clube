@@ -13,6 +13,15 @@ export interface Team {
   team_name: string;
 }
 
+export interface Match {
+  id: number;
+  home_team: number;
+  home_team_goals: number;
+  away_team: number;
+  away_team_goals: number;
+  in_progress: number;
+}
+
 export interface MyError {
   error: boolean;
   code: number;
@@ -40,4 +49,12 @@ export interface ITeamService {
 export interface ITeamModel {
   findAll(): Promise<Team[] | []>
   findByPk(id: string | number): Promise<Team>
+}
+
+export interface IMatchService {
+  findAll(): Promise<Match[]>
+}
+
+export interface IMatchModel {
+  findAll(): Promise<Match[]>
 }

@@ -5,6 +5,9 @@ import TeamRepository from './database/repositories/teamRepository';
 import UserRepository from './database/repositories/userRepository';
 import TeamService from './database/services/teamService';
 import UserService from './database/services/userService';
+import MatchRepository from './database/repositories/matchRepository';
+import MatchService from './database/services/matchService';
+import MatchController from './database/controllers/matchController';
 
 const UserFactory = () => {
   const repository = new UserRepository();
@@ -21,6 +24,14 @@ const TeamFactory = () => {
 
   return controller;
 };
+
+const MatchFactory = () => {
+  const repository = new MatchRepository();
+  const service = new MatchService(repository);
+  const controller = new MatchController(service)
+
+  return controller
+}
 
 class App {
   public app: express.Express;
@@ -60,6 +71,10 @@ class App {
 
     this.app.get('/teams/:id', (req, res, next) => {
       TeamFactory().findByPk(req, res, next);
+    });
+
+    this.app.get('/matches', (req, res, next) => {
+      MatchFactory().findAll(req, res, next);
     });
   }
 
