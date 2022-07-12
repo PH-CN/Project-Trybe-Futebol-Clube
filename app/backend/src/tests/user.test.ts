@@ -7,13 +7,6 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import { roleResponse } from '../database/protocols';
 import User from '../database/models/UserModel';
-import UserService from '../database/services/userService';
-import UserRepository from '../database/repositories/userRepository';
-import UserController from '../database/controllers/userController';
-
-const userRepository = new UserRepository()
-const userService = new UserService(userRepository)
-const userController = new UserController(userService)
 
 const mockedUser = {
   id: 1,
