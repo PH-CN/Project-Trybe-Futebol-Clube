@@ -5,8 +5,7 @@ import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../app';
-import { roleResponse } from '../database/protocols';
-import User from '../database/models/UserModel';
+import Users from '../database/models/UserModel';
 
 const mockedUser = {
   id: 1,
@@ -30,13 +29,13 @@ const { expect } = chai;
 
 describe('O método post na rota login', () => {
   before(() => {
-    sinon.stub(User, 'findOne')
-      .resolves(mockedUser as User)
+    sinon.stub(Users, 'findOne')
+      .resolves(mockedUser as Users)
     sinon.stub(jwt, 'sign').resolves('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU0NTI3MTg5fQ.XS_9AA82iNoiVaASi0NtJpqOQ_gHSHhxrpIdigiT-fc')
   });
 
   after(() => {
-    (User.findOne as sinon.SinonStub)
+    (Users.findOne as sinon.SinonStub)
       .restore();
     (jwt.sign as sinon.SinonStub).restore();
   })
