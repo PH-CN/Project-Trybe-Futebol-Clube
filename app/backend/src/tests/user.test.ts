@@ -9,7 +9,7 @@ import { roleResponse } from '../database/protocols';
 import User from '../database/models/UserModel';
 import UserService from '../database/services/userService';
 import UserRepository from '../database/repositories/userRepository';
-import UserController from '../database/controllers/UserController';
+import UserController from '../database/controllers/userController';
 
 const userRepository = new UserRepository()
 const userService = new UserService(userRepository)
@@ -72,7 +72,6 @@ describe('O método validateAuth na rota /login/validate', () => {
 
   it('retorna o status 200 quando o request é feito corretamente', async () => { 
     const response = await chai.request(app).get('/login/validate').set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJVc2VyIiwicm9sZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2NTc0Nzg5NTJ9.CZiJqRdLrJVsfgEg6r5KUA0Aq85eEVwCQzZ-3c_VnT4');
-    console.log(response)
     expect(response.status).to.be.equal(200);
   })
 })
