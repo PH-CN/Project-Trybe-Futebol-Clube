@@ -76,6 +76,10 @@ class App {
     this.app.get('/matches', (req, res, next) => {
       MatchFactory().findAll(req, res, next);
     });
+
+    this.app.post('/matches', (req, res, next) => {
+      MatchFactory().create(req, res, next);
+    })
   }
 
   public start(PORT: string | number):void {

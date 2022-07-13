@@ -24,4 +24,21 @@ export default class MatchController {
       next(error);
     }
   }
+  
+ async create (req: Request, res: Response, next: NextFunction) {
+  try {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
+    const { authorization } = req.headers;
+
+    const newMatch = await this.service
+      .create(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, authorization);
+    
+    if (typeof newMatch === 'object' && newMatch.error) {
+      return res.status(401).json(newMatch.message)
+    }
+    return res.status(201).json(newMatch);
+  } catch (error) {
+    next(error);
+  }
+ }
 }

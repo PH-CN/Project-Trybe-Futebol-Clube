@@ -20,6 +20,9 @@ export interface Match {
   away_team: number;
   away_team_goals: number;
   in_progress: number;
+  error?: boolean;
+  code?: number;
+  message?: string;
 }
 
 export interface MyError {
@@ -54,9 +57,11 @@ export interface ITeamModel {
 export interface IMatchService {
   findAll(): Promise<Match[]>
   findAllFiltered(query: boolean | string): Promise<Match[]>
+  create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number, authorization: string | undefined): Promise<Match | MyError>
 }
 
 export interface IMatchModel {
   findAll(): Promise<Match[]>
   findAllFiltered(query: boolean | string): Promise<Match[]>
+  create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number): Promise<Match>
 }

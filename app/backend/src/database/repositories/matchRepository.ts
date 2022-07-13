@@ -1,4 +1,3 @@
-import { ParsedQs } from 'qs';
 import MatchModel from '../models/MatchModel';
 import Teams from '../models/TeamModel';
 import { IMatchModel, Match } from '../protocols';
@@ -57,4 +56,13 @@ export default class MatchRepository implements IMatchModel {
 
     return matches;
   }
+
+  async create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number): Promise<Match> {
+    const inProgress = true;
+
+    const newMatch = this.model.create({homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress});
+
+    return newMatch;
+  }
+
 }
