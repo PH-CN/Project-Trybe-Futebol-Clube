@@ -8,9 +8,18 @@ export default class MatchController {
 
   async findAll(req: Request, res: Response, next: NextFunction) {
     try {
-      const matches = await this.service.findAll();
+      const { inProgress } = req.query;
 
-      return res.status(200).json(matches);
+      if (inProgress) {
+        const matches = await this.service.findAllFiltered(inProgress as string | boolean);
+
+        return res.status(200).json(matches);
+
+      } else {
+        const matches = await this.service.findAll();
+
+        return res.status(200).json(matches);
+      }
     } catch (error) {
       next(error);
     }

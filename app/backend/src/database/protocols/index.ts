@@ -53,8 +53,10 @@ export interface ITeamModel {
 
 export interface IMatchService {
   findAll(): Promise<Match[]>
+  findAllFiltered(query: boolean | string): Promise<Match[]>
 }
 
 export interface IMatchModel {
   findAll(): Promise<Match[]>
+  findAllFiltered(query: boolean | string): Promise<Match[]>
 }

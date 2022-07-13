@@ -1,3 +1,4 @@
+import { ParsedQs } from 'qs';
 import MatchModel from '../models/MatchModel';
 import Teams from '../models/TeamModel';
 import { IMatchModel, Match } from '../protocols';
@@ -11,6 +12,32 @@ export default class MatchRepository implements IMatchModel {
     const matches = await this.model.findAll({
       attributes: 
       { exclude: ['home_team', 'away_team'] 
+    },
+      include:
+       [
+        { model: Teams, as: 'teamHome', 
+        attributes: {
+           exclude: ['id'] 
+          } 
+          }, 
+        {
+          model: Teams, as: 'teamAway',
+          attributes: {
+            exclude: ['id'] 
+          }
+         },
+        ]
+      });
+
+    return matches;
+  }
+
+  async findAllFiltered(query: boolean | string): Promise<Match[]> {
+    const bool = (query === 'true');
+    const matches = await this.model.findAll({
+      where: { in_progress: bool },
+      attributes: 
+      { exclude: ['home_team', 'away_team']
     },
       include:
        [
