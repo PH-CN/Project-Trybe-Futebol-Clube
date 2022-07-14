@@ -1,4 +1,5 @@
 import { IMatchService, IMatchModel, Match, MyError } from '../protocols';
+import Teams from '../models/TeamModel';
 import * as jwt from 'jsonwebtoken';
 
 const secret = process.env.JWT_SECRET || 'jwt_secret';
@@ -21,15 +22,22 @@ export default class MatchService implements IMatchService {
   }
 
   async create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number, authorization: string): Promise<Match | MyError> {
-
-    if (homeTeam === awayTeam) {
-      return { error: true, code: 401, message: 'It is not possible to create a match with two equal teams' }
-    }
     
     const decoded = jwt.verify(authorization, secret);
 
     if (!decoded) {
       return { error: true, code: 401, message: 'Invalid token' }
+    }
+
+    if (homeTeam === awayTeam) {
+      return { error: true, code: 401, message: 'It is not possible to create a match with two equal teams' }
+    }
+
+    const homeTeamTest = await Teams.findByPk(homeTeam);
+    const awayTeamTest = await Teams.findByPk(awayTeam);
+
+    if (!homeTeamTest || !awayTeamTest) {
+      return { error: true, code: 404, message: 'There is no team with such id!'}
     }
 
     const newMatch = this.model.create(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals)
