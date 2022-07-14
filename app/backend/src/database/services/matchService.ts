@@ -23,11 +23,7 @@ export default class MatchService implements IMatchService {
 
   async create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number, authorization: string): Promise<Match | MyError> {
     
-    const decoded = jwt.verify(authorization, secret);
-
-    if (!decoded) {
-      return { error: true, code: 401, message: 'Invalid token' }
-    }
+    jwt.verify(authorization, secret);
 
     if (homeTeam === awayTeam) {
       return { error: true, code: 401, message: 'It is not possible to create a match with two equal teams' }

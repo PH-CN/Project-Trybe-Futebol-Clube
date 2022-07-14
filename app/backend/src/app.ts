@@ -1,4 +1,5 @@
 import * as express from 'express';
+import errorHandler from './database/middlewares/ErrorHandler';
 import TeamController from './database/controllers/teamController';
 import UserController from './database/controllers/userController';
 import TeamRepository from './database/repositories/teamRepository';
@@ -84,6 +85,8 @@ class App {
     this.app.patch('/matches/:id/finish', (req, res, next) => {
       MatchFactory().endMatch(req, res, next);
     })
+
+    this.app.use(errorHandler);
   }
 
   public start(PORT: string | number):void {
