@@ -34,7 +34,7 @@ export default class MatchController {
       .create(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, authorization);
     
     if (typeof newMatch === 'object' && newMatch.error) {
-      return res.status(401).json(newMatch.message)
+      return res.status(newMatch.code as number).json({message: newMatch.message})
     }
     return res.status(201).json(newMatch);
   } catch (error) {
