@@ -80,6 +80,10 @@ class App {
     this.app.post('/matches', (req, res, next) => {
       MatchFactory().create(req, res, next);
     })
+
+    this.app.patch('/matches/:id/finish', (req, res, next) => {
+      MatchFactory().endMatch(req, res, next);
+    })
   }
 
   public start(PORT: string | number):void {

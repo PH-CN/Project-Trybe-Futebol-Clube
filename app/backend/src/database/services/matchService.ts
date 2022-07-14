@@ -34,4 +34,8 @@ export default class MatchService implements IMatchService {
 
     return newMatch;
   }
+
+  async endMatch(id: number): Promise<void> {
+    await this.model.endMatch(id);
+  }
 }

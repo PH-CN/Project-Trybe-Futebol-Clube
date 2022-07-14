@@ -58,10 +58,12 @@ export interface IMatchService {
   findAll(): Promise<Match[]>
   findAllFiltered(query: boolean | string): Promise<Match[]>
   create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number, authorization: string | undefined): Promise<Match | MyError>
+  endMatch(id: number): Promise<void>;
 }
 
 export interface IMatchModel {
   findAll(): Promise<Match[]>
   findAllFiltered(query: boolean | string): Promise<Match[]>
   create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number): Promise<Match>
+  endMatch(id: number): Promise<void>;
 }
