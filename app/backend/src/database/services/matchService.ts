@@ -44,4 +44,8 @@ export default class MatchService implements IMatchService {
   async endMatch(id: number): Promise<void> {
     await this.model.endMatch(id);
   }
+
+  async update(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void> {
+    await this.model.update(id, homeTeamGoals, awayTeamGoals)
+  }
 }

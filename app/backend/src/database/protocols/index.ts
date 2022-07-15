@@ -59,6 +59,7 @@ export interface IMatchService {
   findAllFiltered(query: boolean | string): Promise<Match[]>
   create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number, authorization: string | undefined): Promise<Match | MyError | undefined>
   endMatch(id: number): Promise<void>;
+  update(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void>;
 }
 
 export interface IMatchModel {
@@ -66,4 +67,5 @@ export interface IMatchModel {
   findAllFiltered(query: boolean | string): Promise<Match[]>
   create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number): Promise<Match>
   endMatch(id: number): Promise<void>;
+  update(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void>;
 }

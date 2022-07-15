@@ -86,6 +86,10 @@ class App {
       MatchFactory().endMatch(req, res, next);
     })
 
+    this.app.patch('/matches/:id', (req, res, next) => {
+      MatchFactory().update(req, res, next);
+    })
+
     this.app.use(errorHandler);
   }
 
