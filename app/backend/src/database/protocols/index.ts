@@ -91,4 +91,5 @@ export interface IMatchModel {
 export interface ILeaderboardService {
   leaderboardHome(): Promise<Leaderboard>
   leaderboardAway(): Promise<Leaderboard>
+  leaderboard(): Promise<Leaderboard>
 }

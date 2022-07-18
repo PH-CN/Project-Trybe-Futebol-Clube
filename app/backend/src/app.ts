@@ -107,6 +107,10 @@ class App {
       LeaderboardFactory().leaderboardAway(req, res, next)
     })
 
+    this.app.get('/leaderboard', (req, res, next) => {
+      LeaderboardFactory().leaderboard(req, res, next)
+    })
+
     this.app.use(errorHandler);
   }
 
