@@ -12,4 +12,11 @@ export default class LeaderboardController {
 
     return res.status(200).json(leaderboard);
   }
+
+  async leaderboardAway (req: Request, res: Response, next: NextFunction) {
+    
+    const leaderboard = await this.service.leaderboardAway();
+
+    return res.status(200).json(leaderboard);
+  }
 }

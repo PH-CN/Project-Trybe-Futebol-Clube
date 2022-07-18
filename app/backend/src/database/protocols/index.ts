@@ -11,6 +11,7 @@ export interface User {
 export interface Team {
   id: number;
   team_name: string;
+  teamAway?: Team[];
 }
 
 export interface TeamLeaderboard extends Team {
@@ -89,4 +90,5 @@ export interface IMatchModel {
 
 export interface ILeaderboardService {
   leaderboardHome(): Promise<Leaderboard>
+  leaderboardAway(): Promise<Leaderboard>
 }
