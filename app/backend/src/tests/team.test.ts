@@ -12,6 +12,16 @@ const mockedTeam = {
   team_name: 'TSM'
 }
 
+const mockedTeams = [{
+  id: 1,
+  team_name: 'TSM'
+},
+{
+  id: 2,
+  team_name: 'FNC'
+}
+]
+
 chai.use(chaiHttp);
 
 const { expect } = chai;
@@ -31,5 +41,23 @@ describe('O método get na rota /teams:/id', () => {
 
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.eql(mockedTeam)
+  });
+});
+
+describe('o método get na rota /teams', () => {
+
+  before(() => {
+    sinon.stub(Teams, 'findAll').resolves(mockedTeams as Teams[]);
+  });
+
+  after(() => {
+    (Teams.findAll as sinon.SinonStub).restore();
+  });
+
+  it('retorna um array de times corretamente com o status 200', async () => {
+    const response = await chai.request(app).get('/teams');
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.eql(mockedTeams);
   })
 })
