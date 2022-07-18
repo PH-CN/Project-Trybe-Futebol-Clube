@@ -13,6 +13,10 @@ export interface Team {
   team_name: string;
 }
 
+export interface TeamLeaderboard extends Team {
+  teamHome: Match[];
+}
+
 export interface Match {
   id: number;
   home_team: number;
@@ -23,6 +27,19 @@ export interface Match {
   error?: boolean;
   code?: number;
   message?: string;
+}
+
+export interface Leaderboard {
+  name: string;
+  totalPoints: number;
+  totalGames: number;
+  totalVictories: number;
+  totalDraws: number;
+  totalLosses: number;
+  goalsFavor: number;
+  goalsOwn: number;
+  goalsBalance: number;
+  efficiency: number;
 }
 
 export interface MyError {
@@ -68,4 +85,8 @@ export interface IMatchModel {
   create(homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: number): Promise<Match>
   endMatch(id: number): Promise<void>;
   update(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void>;
+}
+
+export interface ILeaderboardService {
+  leaderboardHome(): Promise<Leaderboard>
 }

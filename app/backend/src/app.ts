@@ -9,6 +9,8 @@ import UserService from './database/services/userService';
 import MatchRepository from './database/repositories/matchRepository';
 import MatchService from './database/services/matchService';
 import MatchController from './database/controllers/matchController';
+import LeaderboardService from './database/services/leaderboardService';
+import LeaderboardController from './database/controllers/leaderboardController';
 
 const UserFactory = () => {
   const repository = new UserRepository();
@@ -30,6 +32,13 @@ const MatchFactory = () => {
   const repository = new MatchRepository();
   const service = new MatchService(repository);
   const controller = new MatchController(service)
+
+  return controller
+}
+
+const LeaderboardFactory = () => {
+  const service = new LeaderboardService();
+  const controller = new LeaderboardController(service);
 
   return controller
 }
@@ -88,6 +97,10 @@ class App {
 
     this.app.patch('/matches/:id', (req, res, next) => {
       MatchFactory().update(req, res, next);
+    })
+
+    this.app.get('/leaderboard/home', (req, res, next) => {
+      LeaderboardFactory().leaderboardHome(req, res, next)
     })
 
     this.app.use(errorHandler);
