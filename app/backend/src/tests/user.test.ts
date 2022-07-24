@@ -38,7 +38,7 @@ describe('O método post na rota login', () => {
     (Users.findOne as sinon.SinonStub)
       .restore();
     (jwt.sign as sinon.SinonStub).restore();
-  })
+  });
 
   it('feito corretamente retorna o status 200 com um token', async () => {
     const response = await chai.request(app).post('/login').send({ email: mockedUser.email, password: 'secret_user' });
@@ -56,14 +56,14 @@ describe('O método post na rota login', () => {
 describe('O método validateAuth na rota /login/validate', () => {
   before(() => {
     sinon.stub(jwt, 'verify').resolves(mockedDecodedUser)
-  })
+  });
 
   after(() => {
     (jwt.verify as sinon.SinonStub).restore()
-  })
+  });
 
   it('retorna o status 200 quando o request é feito corretamente', async () => { 
     const response = await chai.request(app).get('/login/validate').set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJVc2VyIiwicm9sZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJpYXQiOjE2NTc0Nzg5NTJ9.CZiJqRdLrJVsfgEg6r5KUA0Aq85eEVwCQzZ-3c_VnT4');
     expect(response.status).to.be.equal(200);
-  })
-})
+  });
+});

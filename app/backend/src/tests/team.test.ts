@@ -1,7 +1,6 @@
 import * as chai from 'chai';
 import { before } from 'mocha';
 import * as sinon from 'sinon';
-import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../app';
@@ -59,5 +58,5 @@ describe('o método get na rota /teams', () => {
 
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.eql(mockedTeams);
-  })
-})
+  });
+});
