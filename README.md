@@ -8,7 +8,7 @@ Este projeto consiste em um site informativo sobre partidas e classificações d
 ## Técnologias usadas
 
 Front-end:
-> Desenvolvido usando: React, Context API,React Hooks, CSS3, HTML5, ES6
+> Desenvolvido usando: React, Context API, React Hooks, CSS3, HTML5, ES6
 
 Back-end:
 > Desenvolvido usando: Node.js, Express.js, ORM: Sequelize, MYSQL, ES6, TypeScript
