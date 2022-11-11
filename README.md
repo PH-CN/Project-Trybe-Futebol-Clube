@@ -3,8 +3,6 @@
 # Contexto
 Este projeto consiste em um site informativo sobre partidas e classificações de futebol com base no consumo de informações armazenadas em um banco de dados. 
 
-(⚠️ **Front-end disponibilizado pelo curso, o meu trabalho foi configurar o docker, estruturar, esquematizar e popular o banco de dados corretamente, fazer a parte do back-end e integra-lo no front-end.** ⚠️)
-
 ## Técnologias usadas
 
 Front-end:
